@@ -11,11 +11,28 @@ let map = L.map("mapid", {
 
 //  Add a marker to the map for Los Angeles, California.
 // let marker = L.marker([34.0522, -118.2437]).addTo(map);
-L.circleMarker([34.0522, -118.2437], {
-    color: 'black',
-    fillColor: '#ffff00',
-    radius: 300
- }).addTo(map);
+// L.circleMarker([34.0522, -118.2437], {
+//     color: 'black',
+//     fillColor: '#ffff00',
+//     radius: 300
+//  }).addTo(map);
+
+// Get data from cities.js
+let cityData = cities;
+
+
+// Loop through the cities array and create one marker for each city.
+cityData.forEach(function(city) {
+	console.log(city)
+  L.circleMarker(city.location, {
+    color: 'orange',
+    fillColor: '#FFA500',
+    weight: 4,
+    radius: city.population/100000
+  })
+  .bindPopup("<h2>" + city.city + ", " + city.state + "</h2> <hr> <h3>Population " + city.population.toLocaleString() + "</h3>")
+  .addTo(map);
+});
 
   // We create the tile layer that will be the background of our map.
 // let streets = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
